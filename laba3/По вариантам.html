@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Форма для Теле(радио)передачи</title>
+  </head>
+  <body>
+    <h1>Форма для Теле(радио)передачи</h1>
+
+    <form id="myForm">
+      <label for="name">Название передачи:</label><br>
+      <input type="text" id="name" name="name"><br>
+
+      <label for="time">Время начала:</label><br>
+      <input type="time" id="time" name="time"><br>
+
+      <label for="day">День недели:</label><br>
+      <select id="day" name="day">
+        <option value="Понедельник">Понедельник</option>
+        <option value="Вторник">Вторник</option>
+        <option value="Среда">Среда</option>
+        <option value="Четверг">Четверг</option>
+        <option value="Пятница">Пятница</option>
+        <option value="Суббота">Суббота</option>
+        <option value="Воскресенье">Воскресенье</option>
+      </select><br>
+
+      <label for="type">Тип передачи:</label><br>
+      <input type="radio" id="news" name="type" value="Радио">
+      <label for="news">Радио</label><br>
+      <input type="radio" id="music" name="type" value="Телевидение">
+      <label for="music">Телевидение</label><br>
+
+      <label for="host">Ведущий:</label><br>
+      <input type="checkbox" id="host" name="host"><br>
+
+      <label for="image">Изображение:</label><br>
+      <input type="file" id="image" name="image"><br>
+
+      <input type="submit" value="Отправить">
+    </form>
+
+    <div id="result"></div> <!-- Элемент для вывода результата -->
+
+    <script>
+      const form = document.getElementById('myForm');
+      const resultDiv = document.getElementById('result');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Отменяем стандартное поведение формы
+
+        // Получаем данные из формы
+        const name = document.getElementById('name').value;
+        const time = document.getElementById('time').value;
+        const day = document.getElementById('day').value;
+        const type = document.querySelector('input[name="type"]:checked').value;
+        const host = document.getElementById('host').checked;
+        const image = document.getElementById('image').value;
+
+        // Формируем строку с результатом
+        let resultString = `
+          Название передачи: ${name}<br>
+          Время начала: ${time}<br>
+          День недели: ${day}<br>
+          Тип передачи: ${type}<br>
+          Ведущий: ${host ? 'есть' : 'нет'}<br>
+          Изображение: ${image ? image : 'не выбрано'}
+        `;
+
+        // Выводим результат на страницу
+        resultDiv.innerHTML = resultString;
+      });
+    </script>
+
+  </body>
+</html>

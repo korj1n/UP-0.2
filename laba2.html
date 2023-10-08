@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Вычисления с датами</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    input[type="date"] {
+      padding: 5px;
+    }
+    
+    button {
+      padding: 8px 12px;
+      margin-top: 10px;
+    }
+    
+    #result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Вычисления с датами</h1>
+  
+  <label for="birthdate">Дата рождения:</label>
+  <input type="date" id="birthdate">
+  
+  <label for="startDate">Дата начала:</label>
+  <input type="date" id="startDate">
+  
+  <label for="endDate">Дата окончания:</label>
+  <input type="date" id="endDate">
+  
+  <button onclick="calculate()">Рассчитать</button>
+  
+  <div id="result"></div>
+
+  <script>
+    function calculate() {
+      const birthdateInput = document.getElementById('birthdate');
+      const birthdate = new Date(birthdateInput.value);
+      const today = new Date();
+      
+      // Количество дней до следующего дня рождения
+      const nextBirthday = new Date(today.getFullYear(), birthdate.getMonth(), birthdate.getDate());
+      if (nextBirthday < today) {
+        nextBirthday.setFullYear(today.getFullYear() + 1);
+      }
+      const daysUntilNextBirthday = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
+      
+      // Количество дней от прошедшего дня рождения
+      const lastBirthday = new Date(today.getFullYear() - 1, birthdate.getMonth(), birthdate.getDate());
+      const daysSinceLastBirthday = Math.ceil((today - lastBirthday) / (1000 * 60 * 60 * 24));
+      
+      // Ближайший год, в котором день рождения приходится на воскресенье
+      let nextSundayYear = today.getFullYear();
+      while (true) {
+        if (new Date(nextSundayYear, birthdate.getMonth(), birthdate.getDate()).getDay() === 0) {
+          break;
+        }
+        nextSundayYear++;
+      }
+      
+      // Количество прожитых человеком дней
+      const daysLived = Math.ceil((today - birthdate) / (1000 * 60 * 60 * 24));
+      
+      // Количество дней до пенсии (примерное значение в 65 лет)
+      const retirementAge = 65;
+      const retirementDate = new Date(birthdate.getFullYear() + retirementAge, birthdate.getMonth(), birthdate.getDate());
+      const daysUntilRetirement = Math.ceil((retirementDate - today) / (1000 * 60 * 60 * 24));
+      
+      // Количество дней до Нового года
+      const nextYear = today.getFullYear() + 1;
+      const newYearDate = new Date(nextYear, 0, 1);
+      const daysUntilNewYear = Math.ceil((newYearDate - today) / (1000 * 60 * 60 * 24));
+      
+      // Количество дней до окончания университета (примерное значение)
+      const universityEndDate = new Date(birthdate.getFullYear() + 22, birthdate.getMonth(), birthdate.getDate());
+      const daysUntilUniversityEnd = Math.ceil((universityEndDate - today) / (1000 * 60 * 60 * 24));
+      
+      // Дата Пасхи в текущем году
+      const easterDate = getEasterDate(today.getFullYear());
+      
+      // Количество дней между двумя датами
+      const startDateInput = document.getElementById('startDate');
+      const endDateInput = document.getElementById('endDate');
+      const startDate = new Date(startDateInput.value);
+      const endDate = new Date(endDateInput.value);
+      const daysBetweenDates = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+      
+      // Количество дней до ближайшего юбилея (каждые 10 лет)
+      const nextAnniversaryYear = Math.ceil(today.getFullYear() / 10) * 10;
+      const anniversaryDate = new Date(nextAnniversaryYear, birthdate.getMonth(), birthdate.getDate());
+      const daysUntilNextAnniversary = Math.ceil((anniversaryDate - today) / (1000 * 60 * 60 * 24));
+      
+      // Вывод результатов
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = `
+        <p>Дней до следующего дня рождения: ${daysUntilNextBirthday}</p>
+        <p>Дней с прошлого дня рождения: ${daysSinceLastBirthday}</p>
+        <p>Ближайший год, когда день рождения выпадает на воскресенье: ${nextSundayYear}</p>
+        <p>Прожито дней: ${daysLived}</p>
+        <p>Дней до пенсии: ${daysUntilRetirement}</p>
+        <p>Дней до Нового года: ${daysUntilNewYear}</p>
+        <p>Дней до окончания университета: ${daysUntilUniversityEnd}</p>
+        <p>Дата Пасхи: ${easterDate}</p>
+        <p>Дней между двумя датами: ${daysBetweenDates}</p>
+        <p>Дней до ближайшего юбилея: ${daysUntilNextAnniversary}</p>
+      `;
+    }
+    
+    function getEasterDate(year) {
+      const a = year % 19;
+      const b = Math.floor(year / 100);
+      const c = year % 100;
+      const d = Math.floor(b / 4);
+      const e = b % 4;
+      const f = Math.floor((b + 8) / 25);
+      const g = Math.floor((b - f + 1) / 3);
+      const h = (19 * a + b - d - g + 15) % 30;
+      const i = Math.floor(c / 4);
+      const k = c % 4;
+      const l = (32 + 2 * e + 2 * i - h - k) % 7;
+      const m = Math.floor((a + 11 * h + 22 * l) / 451);
+      const n = Math.floor((h + l - 7 * m + 114) / 31);
+      const p = (h + l - 7 * m + 114) % 31;
+      
+      const day = p + 1;
+      const month = n;
+      
+      return `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year}`;
+    }
+  </script>
+</body>
+</html>

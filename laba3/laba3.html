@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Форма обратной связи</title>
+</head>
+<body>
+  <form>
+    <h2 style="text-align: center;"> Понравился ли вам этот Web-узел? </h2>
+    <input type="radio" name="like" value="yes"> Да!!!<br>
+    <input type="radio" name="like" value="no"> Нет...<br>
+    <textarea name="impressions" placeholder="Пожалуйста, опишите свои впечатления" rows="2" cols="25"></textarea><br>
+    <p><b>
+        <input type="checkbox" id="checkboxChoice1">
+        Я хочу получать
+        <select id="selectChoice1">
+            <option value="permanent">Немедленно</option>
+            <option value="threeDaysLater">Спустя трое суток</option>
+            <option value="twentyMinutesLater">Через 20 минут</option>
+            <option value="never">Никогда</option>
+        </select>
+        уведомления об изменениях на Web-узле
+    </b></p>
+    <p>Адрес моей электронной почты
+        <input id="emailInput1">
+    </p>
+    <input type="submit" value="Отправить информацию">
+    <input type="reset" value="Очистить форму">
+  </form>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>лаба 1</title>
+    <style>
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h3>№1</h3>
+    <h4>Проверка размера массива</h4>
+    <label for="valueInput">Значение: </label>
+    <input type="number" id="valueInput" />
+    <br />
+    <label for="lengthInput">Длина: </label>
+    <input type="number" id="lengthInput" />
+    <br />
+    <button onclick="fillArray()">Заполнить массив</button>
+    <div id="result"></div>
+
+    <script>
+        function fillArray() {
+            var value = parseInt(document.getElementById("valueInput").value);
+            var length = parseInt(document.getElementById("lengthInput").value);
+
+            if (isNaN(value) || isNaN(length)) {
+                alert("Пожалуйста, введите корректные значения для значения и длины массива.");
+                return;
+            }
+
+            var newArray = new Array(length).fill(value);
+
+            // Вывод результата на страницу
+            var resultElement = document.getElementById("result");
+            resultElement.innerHTML = "Новый массив: " + newArray.join(", ");
+        }
+    </script>
+
+
+
+
+
+    <h3>№2</h3>
+    <h4>Замена регистра</h4>
+    <input type="text" id="input" />
+    <button onclick="reverseCase()">Заменить регистр</button>
+    <div id="result1"></div>
+
+    <script>
+        function reverseCase() {
+            var input = document.getElementById("input").value;
+            var result = "";
+
+            for (var i = 0; i < input.length; i++) {
+                var char = input.charAt(i);
+
+                if (char === char.toUpperCase()) {
+                    result += char.toLowerCase();
+                } else {
+                    result += char.toUpperCase();
+                }
+            }
+
+            var resultElement = document.getElementById("result1");
+            resultElement.innerHTML = "Результат: " + result;
+        }
+        </script>
+
+
+
+
+
+
+
+
+    <h3>№3</h3>
+    <h4>Проверка элементов массива</h4>
+    <input type="text" id="arrayInput" placeholder="Введите элементы массива">
+    <br><br>
+    <button onclick="checkArraySize()">Проверить</button>
+    <script>
+        function checkArraySize() {
+            var input = document.getElementById("arrayInput").value;
+            var elements = input.split(" ");
+
+            if (elements.length >= 3) {
+                alert("Это большой массив, в котором как минимум 3 элемента.");
+            } else {
+                alert("Это маленький массив, в котором менее 3-х элементов.");
+            }
+        }
+    </script>
+
+
+
+
+
+    <h3>№4</h3>
+    <h4>Проверка на палиндромом</h4>
+    <input type="text" id="stringInput" placeholder="Введите строку">
+    <br><br>
+    <button onclick="isPalindrome()">Проверить</button>
+    <script>
+        function isPalindrome() {
+            var input = document.getElementById("stringInput").value;
+            var strippedString = input.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            var reversedString = strippedString.split('').reverse().join('');
+
+            if (strippedString === reversedString) {
+                alert("Строка является палиндромом.");
+                return true;
+            } else {
+                alert("Строка не является палиндромом.");
+                return false;
+            }
+        }
+    </script>
+
+</body>
+</html>

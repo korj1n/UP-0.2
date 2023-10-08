@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование изображений</title>
+</head>
+<body>
+  <input type="file" id="file-input">
+  <br><br>
+  <img class="image" src="" style="max-width: 500px;">
+  <br><br>
+  <button id="chroma">Chroma</button>
+  <button id="drop-shadow">DropShadow</button>
+  <button id="flip-h">FlipH</button>
+  <button id="flip-v">FlipV</button>
+  <button id="glow">Glow</button>
+  <button id="gray">Gray</button>
+  <button id="invert">Invert</button>
+  <button id="light">Light</button>
+  <button id="mask">Mask</button>
+  <button id="shadow">Shadow</button>
+  <button id="xrey">Xrey</button>
+  <button id="wave">Wave</button>
+  
+  <script>
+    const fileInput = document.getElementById("file-input");
+    const image = document.querySelector(".image");
+    const chromaButton = document.getElementById("chroma");
+    const dropShadowButton = document.getElementById("drop-shadow");
+    const flipHButton = document.getElementById("flip-h");
+    const flipVButton = document.getElementById("flip-v");
+    const glowButton = document.getElementById("glow");
+    const grayButton = document.getElementById("gray");
+    const invertButton = document.getElementById("invert");
+    const lightButton = document.getElementById("light");
+    const maskButton = document.getElementById("mask");
+    const shadowButton = document.getElementById("shadow");
+    const xreyButton = document.getElementById("xrey");
+    const waveButton = document.getElementById("wave");
+    
+    function applyFilter(filter) {
+      image.style.webkitFilter = filter;
+      image.style.filter = filter;
+      image.style.transform = "none";
+    }
+    
+    fileInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        image.setAttribute("src", reader.result);
+      };
+    });
+    
+    chromaButton.addEventListener("click", () => {
+      applyFilter("background-color: rgba(255, 0, 0, 0.5); mix-blend-mode: screen;");
+    });
+    
+    dropShadowButton.addEventListener("click", () => {
+      applyFilter("drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5))");
+    });
+    
+    flipHButton.addEventListener("click", () => {
+      applyFilter("scaleX(-1)");
+      image.style.transformOrigin = "50% 50%";
+    });
+    
+    flipVButton.addEventListener("click", () => {
+      applyFilter("scaleY(-1)");
+      image.style.transformOrigin = "50% 50%";
+    });
+    
+    glowButton.addEventListener("click", () => {
+      applyFilter("box-shadow: 0 0 10px 2px #fff, 0 0 20px 5px #fff, 0 0 30px 7px #fff;");
+    });
+    
+    grayButton.addEventListener("click", () => {
+      applyFilter("grayscale(1)");
+    });
+    
+    invertButton.addEventListener("click", () => {
+      applyFilter("invert(1)");
+    });
+    
+    lightButton.addEventListener("click", () => {
+      applyFilter("brightness(1.1)");
+    });
+    
+    maskButton.addEventListener("click", () => {
+      applyFilter("background-color: rgba(255, 0, 0, 0.5); mix-blend-mode: multiply;");
+    });
+    
+    shadowButton.addEventListener("click", () => {
+      applyFilter("drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5))");
+    });
+    
+    xreyButton.addEventListener("click", () => {
+      applyFilter("grayscale(100%) contrast(130%) brightness(1.5)");
+    });
+    
+    waveButton.addEventListener("click", () => {
+      applyFilter("transform: perspective(400px) rotateX(30deg) rotateY(-45deg) scale3d(1.5, 1.5, 1.5) skew(20deg, 10deg) translate(0px, 0px);");
+    });
+  </script>
+</body>
+</html>
